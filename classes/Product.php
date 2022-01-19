@@ -17,13 +17,14 @@ class Product
 		$this->characteristics = $characteristics;
 	}
 
-	protected function genHtml()
+	public function genHtml()
 	{
 		?>
 	  <div class="products-item">
 		  <img src="<?= $this->image ?>" alt="<?= $this->name ?>" class="product-item__image">
+		  <p class="products-item__price"><?=$this->price?></p>
 		  <div class="products-item__caption">
-			  <p class="products-item__name"><?= $this->name ?></p>
+			  <p class="products-item__title"><?= $this->name ?></p>
 			  <div class="products-item__description"><?= $this->description ?></div>
 		  </div>
 		  <button class="products-item__buy">Купить</button>
