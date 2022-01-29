@@ -9,7 +9,7 @@ services:
       dockerfile: 'Dockerfile'
     restart: always
     links:
-      - "MariaDb:localhost"
+      - "postgres:localhost"
     ports:
       - "80:80"
     user: '1000:1000'
@@ -17,22 +17,19 @@ services:
       - './apache_conf:/etc/apache2/sites-available/'
       - ./:/var/www/html
     depends_on:
-      - MariaDb
+      - postgres
     networks:
       - LAMP
-  MariaDb:
-    container_name: "MariaDb"
-    image: "mariadb:latest"
+  postgres:
+    container_name: "PostgreSQL"
+    image: "postgres:latest"
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: example
-      MYSQL_USER: sinstranger
-      MYSQL_PASSWORD: example
+      POSTGRES_USER: sinstranger
+      POSTGRES_PASSWORD: example
       TZ: Europe/Moscow
-    volumes:
-      - "./mysql/:/var/lib/mysql/"
     ports:
-      - "3306:3306"
+      - "5432:5432"
     networks:
       - LAMP
   Adminer:
@@ -44,8 +41,8 @@ services:
     ports:
       - "8080:8080"
     links:
-      - "MariaDb:db"
+      - "postgres:db"
     depends_on:
-      - MariaDb
+      - postgres
     networks:
       - LAMP
