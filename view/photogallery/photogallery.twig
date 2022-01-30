@@ -1,0 +1,15 @@
+{% include 'header.twig' %}
+<main class="main">
+	<form action="/handlers/uploadImages.php" class="add-photo-form" method="post" enctype="multipart/form-data">
+		<input name="uploaded-images[]" class="add-photo-form__load" type="file" value="Выберите файлы" accept="image/*"
+		       multiple>
+		<button class="add-photo-form__send" type="submit">Загрузить</button>
+	</form>
+	<div class="fancy-gallery">
+		{% for photo in photos %}
+					  <a href="{{ photo }}" class="fancy-gallery__item" data-fancybox="gallery"><img src="{{ photo }}" alt="#"></a>
+		{% endfor %}
+	</div>
+</main>
+<script type="module" src="/assets/js/photogallery.js"></script>
+{% include 'footer.twig' %}
