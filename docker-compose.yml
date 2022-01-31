@@ -1,6 +1,8 @@
 version: "3.3"
 services:
   php-apache:
+    extra_hosts:
+     - "host.docker.internal:host-gateway"
     container_name: 'PHP-APACHE'
     build:
       context: .
@@ -10,6 +12,7 @@ services:
       - 'MariaDb:localhost'
     ports:
       - "80:80"
+      - "9003:9003"
     user: '1000:1000'
     volumes:
       - './apache_conf:/etc/apache2/sites-available/'
