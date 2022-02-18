@@ -19,7 +19,6 @@ services:
       - ./:/var/www/html
     depends_on:
       - MariaDb
-  MariaDb:
     image: "mariadb:latest"
     restart: always
     environment:
@@ -27,6 +26,7 @@ services:
       MYSQL_USER: sinstranger
       MYSQL_PASSWORD: example
       MYSQL_DATABASE: shop
+      TZ: Europe/Moscow
     ports:
      - "3306:3306"
   Adminer:
