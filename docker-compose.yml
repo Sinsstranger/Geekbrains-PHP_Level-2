@@ -1,42 +1,35 @@
 version: "3.3"
-networks:
-  LAMP:
 services:
   php-apache:
+    extra_hosts:
+     - "host.docker.internal:host-gateway"
     container_name: 'PHP-APACHE'
     build:
       context: .
       dockerfile: 'Dockerfile'
     restart: always
     links:
-      - "MariaDb:localhost"
+      - 'MariaDb:localhost'
     ports:
       - "80:80"
+      - "9003:9003"
     user: '1000:1000'
     volumes:
       - './apache_conf:/etc/apache2/sites-available/'
       - ./:/var/www/html
     depends_on:
       - MariaDb
-    networks:
-      - LAMP
-  MariaDb:
-    container_name: "MariaDb"
     image: "mariadb:latest"
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: example
       MYSQL_USER: sinstranger
       MYSQL_PASSWORD: example
+      MYSQL_DATABASE: shop
       TZ: Europe/Moscow
-    volumes:
-      - "./mysql/:/var/lib/mysql/"
     ports:
-      - "3306:3306"
-    networks:
-      - LAMP
+     - "3306:3306"
   Adminer:
-    container_name: "ADMINER"
     image: "adminer:latest"
     restart: always
     environment:
@@ -47,5 +40,3 @@ services:
       - "MariaDb:db"
     depends_on:
       - MariaDb
-    networks:
-      - LAMP
