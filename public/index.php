@@ -2,7 +2,7 @@
 
 use app\engine\{Autoload, Db};
 use app\interfaces\IModel;
-use app\models\{Goods, Users};
+use app\models\{Products, Users};
 
 //Подключаем автозагрузчик
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config.php';
@@ -10,20 +10,19 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'engine' . DIRECTORY_SEPAR
 
 //регистрируем автозагрузчик
 spl_autoload_register([new Autoload(), 'loadClass']);
-var_dump($DBH);
-$db = new Db();
+
+$db = DB::getInstance();
 //работаем с объектами
-$good = new Goods($db);
+$good = new Products($db);
 
 
-echo $good->getOne(1);
-echo $good->getAll();
+var_dump($good->getOne(1));
+var_dump($good->getAll());
 
-$user = new Users(new Db());
+$user = new Users($db);
 
-echo $user->getOne(1);
-echo $user->getAll();
-
+var_dump($user->getOne(1));
+var_dump($user->insert(['login' => 'sinstranger', 'pass' => 12345]));
 
 function foo(IModel $model)
 {

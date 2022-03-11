@@ -5,9 +5,14 @@ namespace app\traits;
 trait TSingleton
 {
 	private static $instance = null;
-	private function __construct(){}
-	private function __clone(){}
-	private function __wakeup(){}
+
+	private function __construct()
+	{
+	}
+
+	private function __clone()
+	{
+	}
 
 	public static function getInstance()
 	{
