@@ -5,15 +5,15 @@ use app\interfaces\IModel;
 use app\models\{Goods, Users};
 
 //Подключаем автозагрузчик
-include "../engine/Autoload.php";
-
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config.php';
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'engine' . DIRECTORY_SEPARATOR . 'Autoload.php';
 
 //регистрируем автозагрузчик
 spl_autoload_register([new Autoload(), 'loadClass']);
-
-//TODO используйте один экземпляр Db
+var_dump($DBH);
+$db = new Db();
 //работаем с объектами
-$good = new Goods(new Db());
+$good = new Goods($db);
 
 
 echo $good->getOne(1);

@@ -7,6 +7,6 @@ class Autoload
 
 	public function loadClass($className)
 	{
-		require_once dirname(__DIR__) . str_replace(['\\', 'app'], [DIRECTORY_SEPARATOR, ''], $className) . '.php';
+		require_once sprintf("%s%s.php", ROOT, str_replace(['\\', 'app'], [DS, ''], $className));
 	}
 }
