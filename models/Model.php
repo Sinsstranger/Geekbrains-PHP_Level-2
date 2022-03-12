@@ -33,7 +33,7 @@ abstract class Model implements IModel
 		$valuesQueryStr = '';
 		foreach ($params as $key => &$value) {
 			$paramsQueryStr .= $key !== array_key_last($params) ? "`{$key}`, " : "`{$key}`";
-			$valuesQueryStr .= $key !== array_key_last($params) ? "':{$key}', " : "':{$key}'";
+			$valuesQueryStr .= $key !== array_key_last($params) ? ":{$key}, " : ":{$key}";
 		}
 		var_dump($paramsQueryStr, $valuesQueryStr);
 		$sql = "INSERT INTO `" . $this->getTableName() . "` (" . $paramsQueryStr . ") VALUES (" . $valuesQueryStr . ")";
