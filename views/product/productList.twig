@@ -1,0 +1,12 @@
+{% include 'header.twig' %}
+<div class="product-list">
+	{% for item in props %}
+		<div class="product-list__item" data-product-id="{{ item.id }}">
+			<p class="product-list__name">{{ item.name }}</p>
+			<div class="product-list__description">{{ item.description }}</div>
+			<p class="product-list__price">Цена: {{ item.price }}</p>
+			<button class="product-list__buy" data-product-id="{{ item.id }}">Купить</button>
+		</div>
+	{% endfor %}
+</div>
+{% include 'footer.twig' %}

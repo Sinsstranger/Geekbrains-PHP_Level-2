@@ -20,7 +20,6 @@ class Db
 	private function getConnection(): ?\PDO
 	{
 		if (is_null($this->connection)) {
-			var_dump("Подключаюсь к БД");
 			$this->connection = new \PDO($this->prepareDsnString(),
 				$this->config['login'],
 				$this->config['password']
@@ -48,7 +47,6 @@ class Db
 	private function query($sql, $params): bool|\PDOStatement
 	{
 		$STH = $this->getConnection()->prepare($sql);
-		var_dump($STH);
 		foreach ($params as $key => $value) {
 			$STH->bindValue(":{$key}", $value, is_integer($value) ? \PDO::PARAM_INT : \PDO::PARAM_STR);
 		}

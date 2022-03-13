@@ -7,17 +7,28 @@ use app\engine\Db;
 
 abstract class Model implements IModel
 {
-	private int|string $id;
+	private string $id;
+	protected array $props;
 
 	abstract public function getTableName();
+
+	public function __get($key)
+	{
+		return $this->$key;
+	}
+
+	public function __set($key, $value)
+	{
+		$this->props[$key] = $value;
+		$this->$key = $value;
+	}
 
 	public function getOne($id)
 	{
 		$tableName = $this->getTableName();
 		$sql = "SELECT * FROM {$tableName} WHERE id = :id";
-		Db::getInstance()->queryOne($sql, ['id' => $id]);
 		$this->id = $id;
-		return Db::getInstance()->lastInsertId();
+		return Db::getInstance()->queryOne($sql, ['id' => $id]);
 	}
 
 	public function getAll()
@@ -35,9 +46,7 @@ abstract class Model implements IModel
 			$paramsQueryStr .= $key !== array_key_last($params) ? "`{$key}`, " : "`{$key}`";
 			$valuesQueryStr .= $key !== array_key_last($params) ? ":{$key}, " : ":{$key}";
 		}
-		var_dump($paramsQueryStr, $valuesQueryStr);
 		$sql = "INSERT INTO `" . $this->getTableName() . "` (" . $paramsQueryStr . ") VALUES (" . $valuesQueryStr . ")";
-		var_dump($sql);
 		Db::getInstance()->execute($sql, $params);
 		$this->id = Db::getInstance()->lastInsertId();
 		return $this;
@@ -50,8 +59,6 @@ abstract class Model implements IModel
 	public function delete()
 	{
 		$sql = "DELETE FROM `" . $this->getTableName() . "` WHERE `id` = {$this->id}";
-		var_dump($sql);
 		Db::getInstance()->execute($sql);
-		return $this;
 	}
 }

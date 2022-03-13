@@ -4,9 +4,9 @@ namespace app\models;
 
 class Users extends Model
 {
-    public $id;
-    public $login;
-    public $pass;
+    public int $id;
+    public string $login;
+    public mixed $pass;
 
     public function getTableName()
     {

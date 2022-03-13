@@ -12,21 +12,7 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'engine' . DIRECTORY_SEPAR
 spl_autoload_register([new Autoload(), 'loadClass']);
 
 $db = DB::getInstance();
-//работаем с объектами
-$good = new Products($db);
-
-
-var_dump($good->getOne(1));
-var_dump($good->getAll());
-
-$user = new Users($db);
-
-var_dump($user->getOne(1));
-var_dump($user->insert(['login' => 'sinstranger', 'pass' => 12345]));
-
-function foo(IModel $model)
-{
-	echo $model->getTableName();
-}
-
-foo($user);
+$controllerName = $_GET['c'] ?? 'product';
+$controllerClass = CONTROLLER_NAMESPACE . ucfirst($controllerName) . 'Controller';
+class_exists($controllerClass) ? $controller = new $controllerClass() : die('Такого контроллера не существует');
+$controller->runAction($_GET['a'] ?? null)->render();
