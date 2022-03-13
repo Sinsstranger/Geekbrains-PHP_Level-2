@@ -1,0 +1,10 @@
+{% include 'header.twig' %}
+<div class="product-detail">
+		<div class="product-detail__item" data-product-id="{{ props.id }}">
+			<p class="product-detail__name">{{ props.name }}</p>
+			<div class="product-detail__description">{{ props.description }}</div>
+			<p class="product-detail__price">Цена: {{ props.price }}</p>
+			<button class="product-detail__buy" data-product-id="{{ props.id }}">Купить</button>
+		</div>
+</div>
+{% include 'footer.twig' %}

@@ -1,0 +1,15 @@
+{
+    "name": "sinstranger/test-site",
+    "description": "It's just for learn PHP",
+    "type": "project",
+    "require": {
+        "twig/twig": "^3.3",
+	    "ext-pdo": "*"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "sinstranger"
+        }
+    ]
+}
