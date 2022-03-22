@@ -39,6 +39,4 @@ class ProductController extends Controller
 			'title' => "{$product->name} | {$product->description}",
 		]);
 	}
-
-
 }

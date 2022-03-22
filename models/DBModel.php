@@ -18,7 +18,9 @@ abstract class DBModel extends Model
 	//SELECT from users where login = admin
 	public static function getWhere($name, $value)
 	{
-		//TODO собрать запрос вида WHERE 'login' = 'admin'
+		$tableName = static::getTableName();
+		$sql = "SELECT * FROM {$tableName} WHERE {$name} = ?";
+		return Db::getInstance()->queryWhere($sql, $value);
 	}
 
 	public static function getOne($id)

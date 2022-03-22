@@ -75,6 +75,15 @@ class Db
 		return $this->query($sql, $params)->fetch();
 	}
 
+	public function queryWhere($sql, $value)
+	{
+		$STH = $this->getConnection()->prepare($sql);
+		$STH->bindValue(1, $value, is_int($value) ? \PDO::PARAM_INT : \PDO::PARAM_STR);
+		$STH->execute();
+		return $STH->fetch();
+
+	}
+
 	public function queryAll($sql, $params = [])
 	{
 		return $this->query($sql, $params)->fetchAll();
