@@ -85,3 +85,5 @@ fabric.properties
 # Docker Mysql
 mysql
 vendor
+
+composer.phar
